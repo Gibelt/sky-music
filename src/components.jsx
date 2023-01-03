@@ -84,8 +84,8 @@ function MainScreen() {
             <h2 className="centerblock__h2">Треки</h2>
             <Filter />
             <TrackList />
-            <SideBar />
           </div>
+          <SideBar />
         </main>
         <Bar />
         <footer className="footer" />
@@ -96,9 +96,9 @@ function MainScreen() {
 
 function Navigation() {
   return (
-    <nav className="nav">
-      <div className="nav_logo, logo">
-        <img className="logo_image" src={logo} alt="logo" />
+    <nav className="main__nav nav">
+      <div className="nav__logo logo">
+        <img className="logo__image" src={logo} alt="logo" />
       </div>
       <Burger />
       <NavigationMenu />
@@ -108,20 +108,20 @@ function Navigation() {
 
 function NavigationMenu() {
   return (
-    <div className="nav_menu, menu">
-      <ul className="menu_list">
-        <li className="menu_item">
-          <a href="http://" className="Menu_linlk">
+    <div className="nav__menu menu">
+      <ul className="menu__list">
+        <li className="menu__item">
+          <a href="http://" className="menu__link">
             Главное
           </a>
         </li>
-        <li className="menu_item">
-          <a href="http://" className="Menu_linlk">
+        <li className="menu__item">
+          <a href="http://" className="menu__link">
             Мой плейлист
           </a>
         </li>
-        <li className="menu_item">
-          <a href="http://" className="Menu_linlk">
+        <li className="menu__item">
+          <a href="http://" className="menu__link">
             Войти
           </a>
         </li>
@@ -132,10 +132,10 @@ function NavigationMenu() {
 
 function Burger() {
   return (
-    <div className="nav_burger, burger">
-      <span className="burget_line" />
-      <span className="burget_line" />
-      <span className="burget_line" />
+    <div className="nav__burger burger">
+      <span className="burger__line" />
+      <span className="burger__line" />
+      <span className="burger__line" />
     </div>
   )
 }
