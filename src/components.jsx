@@ -71,6 +71,13 @@ const tracks = [
     album: 'Soundz Made in Romania',
     time: '3:36',
   },
+  {
+    title: '',
+    titleSpan: '',
+    author: '',
+    album: '',
+    time: '',
+  },
 ]
 
 function MainScreen() {
@@ -183,6 +190,7 @@ function TrackList() {
       <div className="content__playlist playlist">
         {tracks.map(({ title, titleSpan, author, album, time }) => (
           <Track
+            key={title.toString()}
             title={title}
             author={author}
             album={album}
