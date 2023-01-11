@@ -1,9 +1,9 @@
-import MainScreen from './components';
-import './App.css';
-import './style/style.css';
+import MainScreen from './components'
+import './App.css'
+import './style/style.css'
 
 function App() {
-  return <MainScreen/>
+  return <MainScreen />
 }
 
-export default App;
+export default App

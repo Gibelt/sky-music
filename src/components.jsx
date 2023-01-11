@@ -1,4 +1,11 @@
+import { useEffect, useState } from 'react'
 import logo from './logo.png'
+import SkeletonTrackList from './skeleton-track-list'
+import SkeletonPlayerContain from './skeleton-player-contain'
+import SkeletonSideBar from './skeleton-side-bar'
+
+
+const skeletonTrackNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 const tracks = [
   {
@@ -80,7 +87,38 @@ const tracks = [
   },
 ]
 
+const performers = [
+  'Michael Jackson',
+  'Frank Sinatra',
+  'Calvin Harris',
+  'Zhu',
+  'Arctic Monkeys',
+  'Sia',
+  'Rob Thomas',
+  'Beatles',
+]
+
+const genres = [
+  'Рок',
+  'Хип-хоп',
+  'Поп-музыка',
+  'Техно',
+  'Инди',
+  'Рэп',
+  'Панк',
+  'Дип-хаус',
+]
+
 function MainScreen() {
+
+  const [loader, setLoader] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false)
+    }, 5000)
+  })
+
   return (
     <div className="wrapper">
       <div className="container">
@@ -90,11 +128,11 @@ function MainScreen() {
             <Search />
             <h2 className="centerblock__h2">Треки</h2>
             <Filter />
-            <TrackList />
+            <TrackList loader={loader} />
           </div>
-          <SideBar />
+          {loader ? <SkeletonSideBar /> : <SideBar />}
         </main>
-        <Bar />
+        <Bar loader={loader} />
         <footer className="footer" />
       </div>
     </div>
@@ -102,13 +140,16 @@ function MainScreen() {
 }
 
 function Navigation() {
+  const [visible, setVisible] = useState(false)
+  const toggleVisibility = () => setVisible(!visible)
+
   return (
     <nav className="main__nav nav">
       <div className="nav__logo logo">
         <img className="logo__image" src={logo} alt="logo" />
       </div>
-      <Burger />
-      <NavigationMenu />
+      <Burger onClick={toggleVisibility} />
+      {visible && <NavigationMenu />}
     </nav>
   )
 }
@@ -137,9 +178,14 @@ function NavigationMenu() {
   )
 }
 
-function Burger() {
+function Burger(props) {
   return (
-    <div className="nav__burger burger">
+    <div
+      role="presentation"
+      onKeyDown={props.onClick}
+      onClick={props.onClick}
+      className="nav__burger burger"
+    >
       <span className="burger__line" />
       <span className="burger__line" />
       <span className="burger__line" />
@@ -164,17 +210,70 @@ function Search() {
 }
 
 function Filter() {
+  const [performerVisible, setPerformerVisible] = useState(false)
+  const togglePerformerVisibility = () => setPerformerVisible(!performerVisible)
+
+  const [yearVisible, setYearVisible] = useState(false)
+  const toggleYearVisibility = () => setYearVisible(!yearVisible)
+
+  const [genreVisible, setGenreVisible] = useState(false)
+  const toggleGenreVisibility = () => setGenreVisible(!genreVisible)
+
+  function performerFilterActive() {
+    setYearVisible(false)
+    setGenreVisible(false)
+    togglePerformerVisibility()
+  }
+
+  function yearFilterActive() {
+    setGenreVisible(false)
+    setPerformerVisible(false)
+    toggleYearVisibility()
+  }
+
+  function genreFilterActive() {
+    setPerformerVisible(false)
+    setYearVisible(false)
+    toggleGenreVisibility()
+  }
+
   return (
     <div className="centerblock__filter filter">
       <div className="filter__title">Искать по:</div>
-      <div className="filter__button button-author _btn-text">исполнителю</div>
-      <div className="filter__button button-year _btn-text">году выпуска</div>
-      <div className="filter__button button-genre _btn-text">жанру</div>
+      <div
+        role="presentation"
+        onKeyDown={performerFilterActive}
+        onClick={performerFilterActive}
+        className="filter__button button-author _btn-text"
+      >
+        {performerVisible && (
+          <FilterList list={performers} mode="filter-list performers" />
+        )}
+        исполнителю
+      </div>
+      <div
+        role="presentation"
+        onKeyDown={yearFilterActive}
+        onClick={yearFilterActive}
+        className="filter__button button-year _btn-text"
+      >
+        {yearVisible && <FilterList mode="filter-list year" />}
+        году выпуска
+      </div>
+      <div
+        role="presentation"
+        onKeyDown={genreFilterActive}
+        onClick={genreFilterActive}
+        className="filter__button button-genre _btn-text"
+      >
+        {genreVisible && <FilterList list={genres} mode="filter-list genre" />}
+        жанру
+      </div>
     </div>
   )
 }
 
-function TrackList() {
+function TrackList(props) {
   return (
     <div className="centerblock__content">
       <div className="content__title playlist-title">
@@ -188,16 +287,18 @@ function TrackList() {
         </div>
       </div>
       <div className="content__playlist playlist">
-        {tracks.map(({ title, titleSpan, author, album, time }) => (
-          <Track
-            key={title.toString()}
-            title={title}
-            author={author}
-            album={album}
-            time={time}
-            titleSpan={titleSpan}
-          />
-        ))}
+        {props.loader
+          ? skeletonTrackNumber.map((n) => <SkeletonTrackList key={n} />)
+          : tracks.map(({ title, titleSpan, author, album, time }) => (
+              <Track
+                key={title.toString()}
+                title={title}
+                author={author}
+                album={album}
+                time={time}
+                titleSpan={titleSpan}
+              />
+            ))}
       </div>
     </div>
   )
@@ -283,7 +384,7 @@ function SideBar() {
   )
 }
 
-function Bar() {
+function Bar(props) {
   return (
     <div className="bar">
       <div className="bar__content">
@@ -292,7 +393,9 @@ function Bar() {
           <div className="bar__player player">
             <PlayerControls />
             <div className="player__track-play track-play">
-              <TrackPlayerContain title="Ты та..." author="Баста" />
+              {props.loader 
+                ? <SkeletonPlayerContain />
+                : <TrackPlayerContain title="Ты та..." author="Баста" />}
               <LikeDislike />
             </div>
           </div>
@@ -392,6 +495,79 @@ function Volume() {
         </div>
       </div>
     </div>
+  )
+}
+
+function FilterList(props) {
+  const list =
+    props.list &&
+    props.list.map((item) => <FilterItem key={item.toString()} item={item} />)
+
+  function handleClose(e) {
+    e.stopPropagation()
+  }
+
+  return (
+    <div
+      role="presentation"
+      onKeyDown={handleClose}
+      onClick={handleClose}
+      className={props.mode}
+    >
+      {props.mode === 'filter-list year' ? (
+        <div className="content__genre">
+          <FilterItemRadio />
+        </div>
+      ) : (
+        <div className="filter-list__content">{list}</div>
+      )}
+    </div>
+  )
+}
+
+function FilterItem(props) {
+  const [active, setActive] = useState(false)
+  const toggleActive = () => setActive(!active)
+
+  return (
+    <p
+      role="presentation"
+      onKeyDown={toggleActive}
+      key={props.item.toString()}
+      onClick={toggleActive}
+      className={`filter-list__item ${
+        active ? 'filter-list__item_active' : ''
+      }`}
+    >
+      {props.item}
+    </p>
+  )
+}
+
+function FilterItemRadio() {
+  return (
+    <>
+      <label className="filter-list__item item__genre" htmlFor="newer">
+        <input
+          className="radio-input"
+          type="radio"
+          name="year-filter"
+          id="newer"
+          value="newer"
+        />
+        более новые
+      </label>
+      <label className="filter-list__item item__genre" htmlFor="older">
+        <input
+          className="radio-input"
+          type="radio"
+          name="year-filter"
+          id="older"
+          value="older"
+        />
+        более старые
+      </label>
+    </>
   )
 }
 
