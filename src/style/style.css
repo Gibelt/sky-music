@@ -301,7 +301,19 @@
     border-radius: 60px;
     padding: 6px 20px;
   }
-  
+
+  .button-author {
+    position: relative;
+  }
+
+  .button-year {
+    position: relative;
+  }
+
+  .button-genre {
+    position: relative;
+  }
+
   .filter__button:not(:last-child) {
     margin-right: 10px;
   }
@@ -868,3 +880,96 @@
     width: 109px;
   }
   
+  .filter-list {
+    width: 248px;
+    background: #313131;
+    border-radius: 12px;
+    padding: 36px 34px;
+  }
+
+  .performers {
+    top: 48px;
+    position: absolute;
+    left: 0;
+  }
+
+  .year {
+    top: 48px;
+    position: absolute;
+    left: 0;
+    width: 403px;
+    padding: 34px;
+  }
+
+  .genre {
+    top: 48px;
+    position: absolute;
+    left: 0;
+  }
+
+  .filter-list__content {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    height: 232px;
+    overflow: auto;
+  }
+
+  .content__genre {
+    display: flex;
+    gap: 28px;
+  }
+
+  .filter-list__item {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+
+  .item__genre {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .filter-list__item_active {
+    text-decoration-line: underline;
+    color: #B672FF;
+  }
+
+  .radio-input {
+    width: 18px;
+    height: 18px;
+  }
+
+  .track__title-skeleton {
+    width: 356px; 
+    height: 19px;
+    background-color: #313131;
+  }
+
+  .track__author-skeleton {
+    width: 271px;
+    height: 19px;
+    background-color: #313131;
+  }
+
+  .track__album-skeleton {
+    width: 305px;
+    height: 19px;
+    background-color: #313131;
+  }
+
+  .track-play-skeleton {
+    width: 59px;
+    height: 15px;
+    background-color: #313131;
+  }
+
+  .sidebar__item-skeleton {
+    width: 250px;
+    height: 150px;
+    background-color: #313131;
+  }
