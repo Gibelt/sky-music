@@ -26,8 +26,8 @@
 }
 
 .like:active svg {
-  fill: transparent;
-  stroke: #ffffff;
+  fill: #696969;
+  stroke: #FFFFFF;
   cursor: pointer;
 }
 
@@ -37,8 +37,6 @@
 }
 
 .like__svg {
-  fill: #696969;
-  stroke: #ffffff;
   cursor: pointer;
   width: 14px;
   height: 12px;

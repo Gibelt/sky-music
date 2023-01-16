@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import './style/style.css'
 import s from './style/App.module.css'
 import Navigation from './components/Navigation'
 import Search from './components/Search'

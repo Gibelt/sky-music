@@ -6,7 +6,7 @@ export default function Volume() {
         <div className={s.content}>
           <div className={s.image}>
             <svg className={s.svg} alt="volume">
-              <use xlinkHref="../..img/icons/sprite.svg#icon-volume" />
+              <use xlinkHref="../../img/icons/sprite.svg#icon-volume" />
             </svg>
           </div>
           <div className={s.progress}>
