@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import s from './NavigationMenu.module.css'
 
 export default function NavigationMenu() {
@@ -5,19 +6,19 @@ export default function NavigationMenu() {
       <div className={s.menu}>
         <ul className={s.list}>
           <li className={s.item}>
-            <a href="http://" className={s.link}>
+            <Link to="/main" className={s.link}>
               Главное
-            </a>
+            </Link>
           </li>
           <li className={s.item}>
-            <a href="http://" className={s.link}>
+            <Link to="/my_tracks" className={s.link}>
               Мой плейлист
-            </a>
+            </Link>
           </li>
           <li className={s.item}>
-            <a href="http://" className={s.link}>
-              Войти
-            </a>
+            <Link to="/" className={s.link}>
+              Выйти
+            </Link>
           </li>
         </ul>
       </div>
