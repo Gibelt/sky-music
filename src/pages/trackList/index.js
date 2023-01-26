@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
-import s from './MainTrackList.module.css'
-import Navigation from '../../components/navigation/Navigation'
-import Search from '../../components/search/Search'
-import Filter from '../../components/filter/Filter'
-import TrackList from '../../components/trackList/TrackList'
-import Personal from '../../components/personal/Personal'
-import PlayListBlock from '../../components/playListBlock/PlayListBlock'
-import Bar from '../../components/bar/Bar'
-import SkeletonSideBar from '../../components/skeletons/skeletonSideBar/SkeletonSideBar'
+import { useEffect, useState } from 'react';
+import s from './MainTrackList.module.css';
+import Navigation from '../../components/navigation/Navigation';
+import Search from '../../components/search/Search';
+import Filter from '../../components/filter/Filter';
+import TrackList from '../../components/trackList/TrackList';
+import Personal from '../../components/personal/Personal';
+import PlayListBlock from '../../components/playListBlock/PlayListBlock';
+import Bar from '../../components/bar/Bar';
+import SkeletonSideBar from '../../components/skeletons/skeletonSideBar/SkeletonSideBar';
 
 const tracks = [
   {
@@ -87,16 +87,16 @@ const tracks = [
     album: '',
     time: '',
   },
-]
+];
 
 export default function MainTrackList() {
-  const [loader, setLoader] = useState(true)
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setLoader(false)
-    }, 5000)
-  })
+      setLoader(false);
+    }, 5000);
+  });
 
   return (
     <div className={s.container}>
@@ -121,5 +121,5 @@ export default function MainTrackList() {
       <Bar loader={loader} />
       <footer className={s.footer} />
     </div>
-  )
+  );
 }

@@ -1,14 +1,14 @@
-import FilterItem from '../filterItem/FilterItem'
-import FilterItemRadio from '../filterItemRadio/FilterItemRadio'
-import s from './FilterList.module.css'
+import FilterItem from '../filterItem/FilterItem';
+import FilterItemRadio from '../filterItemRadio/FilterItemRadio';
+import s from './FilterList.module.css';
 
 export default function FilterList(props) {
   const list =
     props.list &&
-    props.list.map((item) => <FilterItem key={item.toString()} item={item} />)
+    props.list.map((item) => <FilterItem key={item.toString()} item={item} />);
 
   function handleClose(e) {
-    e.stopPropagation()
+    e.stopPropagation();
   }
 
   return (
@@ -26,5 +26,5 @@ export default function FilterList(props) {
         <div className={s.content}>{list}</div>
       )}
     </div>
-  )
+  );
 }

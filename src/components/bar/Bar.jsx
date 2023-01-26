@@ -1,37 +1,41 @@
-import { useRef, useState } from 'react'
-import PlayerControls from '../playerControls/PlayerControls'
-import TrackPlayerContain from '../trackPlayerContain/TrackPlayerContain'
-import LikeDislike from '../likeDislike/LikeDislike'
-import Volume from '../volume/Volume'
-import BarProgress from '../barProgress/BarProgress'
-import SkeletonPlayerContain from '../skeletons/skeletonPlayerContain/SkeletonPlayerContain'
-import s from './Bar.module.css'
+import { useRef, useState } from 'react';
+import PlayerControls from '../playerControls/PlayerControls';
+import TrackPlayerContain from '../trackPlayerContain/TrackPlayerContain';
+import LikeDislike from '../likeDislike/LikeDislike';
+import Volume from '../volume/Volume';
+import BarProgress from '../barProgress/BarProgress';
+import SkeletonPlayerContain from '../skeletons/skeletonPlayerContain/SkeletonPlayerContain';
+import s from './Bar.module.css';
 /* eslint-disable jsx-a11y/media-has-caption */
 
 export default function Bar(props) {
-  const playControls = useRef(null)
+  const playControls = useRef(null);
 
-  const [isPlay, setPlay] = useState(true)
-  const togglePlay = () => setPlay(!isPlay)
+  const [isPlay, setPlay] = useState(true);
+  const togglePlay = () => setPlay(!isPlay);
 
-  const [id, setId] = useState(null)
+  const [id, setId] = useState(null);
 
-  const [width, setWidth] = useState(0)
+  const [width, setWidth] = useState(0);
 
   const playTrack = () => {
     togglePlay();
-    if(isPlay) {
+    if (isPlay) {
       playControls.current.play();
-      setId(setInterval(() => {setWidth(c => c + 1 / (playControls.current.duration / 50))}, 500));
+      setId(
+        setInterval(() => {
+          setWidth((c) => c + 1 / (playControls.current.duration / 50));
+        }, 500)
+      );
     } else {
       setId(clearInterval(id));
       playControls.current.pause();
-    }    
-   }
+    }
+  };
 
   return (
     <div className={s.bar}>
-      <audio controls ref={playControls}>
+      <audio ref={playControls}>
         <source src="../../Bobby_Marleni_-_Dropin.mp3" type="audio/mp3" />
       </audio>
       <div className={s.content}>
@@ -52,5 +56,5 @@ export default function Bar(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }

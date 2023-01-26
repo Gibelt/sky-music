@@ -1,4 +1,4 @@
-import s from './SkeletonTrackList.module.css'
+import s from './SkeletonTrackList.module.css';
 
 function SkeletonTrackList() {
   return (
@@ -16,4 +16,4 @@ function SkeletonTrackList() {
   );
 }
 
-export default SkeletonTrackList
+export default SkeletonTrackList;

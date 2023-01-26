@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import FilterList from '../filterList/FilterList'
-import s from './Filter.module.css'
+import { useState } from 'react';
+import FilterList from '../filterList/FilterList';
+import s from './Filter.module.css';
 
 const performers = [
   'Michael Jackson',
@@ -11,7 +11,7 @@ const performers = [
   'Sia',
   'Rob Thomas',
   'Beatles',
-]
+];
 
 const genres = [
   'Рок',
@@ -22,34 +22,35 @@ const genres = [
   'Рэп',
   'Панк',
   'Дип-хаус',
-]
+];
 
 export default function Filter() {
-  const [performerVisible, setPerformerVisible] = useState(false)
-  const togglePerformerVisibility = () => setPerformerVisible(!performerVisible)
+  const [performerVisible, setPerformerVisible] = useState(false);
+  const togglePerformerVisibility = () =>
+    setPerformerVisible(!performerVisible);
 
-  const [yearVisible, setYearVisible] = useState(false)
-  const toggleYearVisibility = () => setYearVisible(!yearVisible)
+  const [yearVisible, setYearVisible] = useState(false);
+  const toggleYearVisibility = () => setYearVisible(!yearVisible);
 
-  const [genreVisible, setGenreVisible] = useState(false)
-  const toggleGenreVisibility = () => setGenreVisible(!genreVisible)
+  const [genreVisible, setGenreVisible] = useState(false);
+  const toggleGenreVisibility = () => setGenreVisible(!genreVisible);
 
   function performerFilterActive() {
-    setYearVisible(false)
-    setGenreVisible(false)
-    togglePerformerVisibility()
+    setYearVisible(false);
+    setGenreVisible(false);
+    togglePerformerVisibility();
   }
 
   function yearFilterActive() {
-    setGenreVisible(false)
-    setPerformerVisible(false)
-    toggleYearVisibility()
+    setGenreVisible(false);
+    setPerformerVisible(false);
+    toggleYearVisibility();
   }
 
   function genreFilterActive() {
-    setPerformerVisible(false)
-    setYearVisible(false)
-    toggleGenreVisibility()
+    setPerformerVisible(false);
+    setYearVisible(false);
+    toggleGenreVisibility();
   }
 
   return (
@@ -97,5 +98,5 @@ export default function Filter() {
         жанру
       </div>
     </div>
-  )
+  );
 }

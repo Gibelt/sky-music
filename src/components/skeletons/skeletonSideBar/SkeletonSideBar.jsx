@@ -1,4 +1,4 @@
-import s from './SkeletonSideBar.module.css'
+import s from './SkeletonSideBar.module.css';
 
 function SkeletonSideBar() {
   return (
@@ -11,7 +11,7 @@ function SkeletonSideBar() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default SkeletonSideBar
+export default SkeletonSideBar;

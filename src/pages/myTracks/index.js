@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
-import s from './MyTracks.module.css'
-import Navigation from '../../components/navigation/Navigation'
-import Search from '../../components/search/Search'
-import TrackList from '../../components/trackList/TrackList'
-import Personal from '../../components/personal/Personal'
-import Bar from '../../components/bar/Bar'
+import { useEffect, useState } from 'react';
+import s from './MyTracks.module.css';
+import Navigation from '../../components/navigation/Navigation';
+import Search from '../../components/search/Search';
+import TrackList from '../../components/trackList/TrackList';
+import Personal from '../../components/personal/Personal';
+import Bar from '../../components/bar/Bar';
 
 const tracks = [
   {
@@ -42,16 +42,16 @@ const tracks = [
     album: 'Run Run',
     time: '2:54',
   },
-]
+];
 
 export default function MyTracks() {
-  const [loader, setLoader] = useState(true)
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setLoader(false)
-    }, 5000)
-  })
+      setLoader(false);
+    }, 5000);
+  });
 
   return (
     <div className={s.container}>
@@ -69,5 +69,5 @@ export default function MyTracks() {
       <Bar loader={loader} />
       <footer className={s.footer} />
     </div>
-  )
+  );
 }

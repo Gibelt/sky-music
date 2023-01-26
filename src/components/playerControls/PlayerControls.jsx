@@ -1,7 +1,6 @@
-import s from './PlayerControls.module.css'
+import s from './PlayerControls.module.css';
 
 export default function PlayerControls(props) {
-
   return (
     <div className={s.controls}>
       <div className={s.prev}>
@@ -30,5 +29,5 @@ export default function PlayerControls(props) {
         </svg>
       </div>
     </div>
-  )
+  );
 }

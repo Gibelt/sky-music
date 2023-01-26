@@ -1,12 +1,12 @@
-import s from './style/App.module.css'
-import AppRoutes from './routes'
+import s from './style/App.module.css';
+import AppRoutes from './routes';
 
 function App() {
- return (
-  <div className={s.wrapper}>
-    <AppRoutes />
-  </div>
- );
+  return (
+    <div className={s.wrapper}>
+      <AppRoutes />
+    </div>
+  );
 }
 
-export default App
+export default App;

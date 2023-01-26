@@ -1,12 +1,10 @@
-import SkeletonTrackList from '../skeletons/skeletonTrackList/SkeletonTrackList'
-import Track from '../track/Track'
-import s from './TrackList.module.css'
+import SkeletonTrackList from '../skeletons/skeletonTrackList/SkeletonTrackList';
+import Track from '../track/Track';
+import s from './TrackList.module.css';
 
-const skeletonTrackNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-
+const skeletonTrackNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 export default function TrackList(props) {
-  
   return (
     <div className={s.content}>
       <div className={s.title}>
@@ -34,5 +32,5 @@ export default function TrackList(props) {
             ))}
       </div>
     </div>
-  )
+  );
 }

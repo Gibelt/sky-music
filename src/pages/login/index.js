@@ -3,8 +3,8 @@ import LoginAndRegistration from '../../components/loginAndRegistration/LoginAnd
 
 export default function LoginScreen() {
   return (
-  <div className={s.container}>
-    <LoginAndRegistration type="login" />
-  </div>
-  )
+    <div className={s.container}>
+      <LoginAndRegistration type="login" />
+    </div>
+  );
 }

@@ -1,120 +1,120 @@
 .controls {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    padding: 0 27px 0 31px;
-  }
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 0 27px 0 31px;
+}
 
-  .button {
-    padding: 5px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
+.button {
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
 
-  .prev {
-    composes: button;
-    margin-right: 23px;
-  }
+.prev {
+  composes: button;
+  margin-right: 23px;
+}
 
-  .play {
-    composes: button;
-    margin-right: 23px;
-    cursor: pointer;
-  }
+.play {
+  composes: button;
+  margin-right: 23px;
+  cursor: pointer;
+}
 
-  .next {
-    composes: button;
-    margin-right: 28px;
-    fill: #a53939;
-  }
+.next {
+  composes: button;
+  margin-right: 28px;
+  fill: #a53939;
+}
 
-  .repeat {
-    composes: button;
-    margin-right: 24px;
-  }
+.repeat {
+  composes: button;
+  margin-right: 24px;
+}
 
-  .repeat:hover svg {
-    fill: transparent;
-    stroke: #ACACAC;
-    cursor: pointer;
-  }
+.repeat:hover svg {
+  fill: transparent;
+  stroke: #acacac;
+  cursor: pointer;
+}
 
-  .repeat:active svg {
-    fill: transparent;
-    stroke: #FFFFFF;
-    cursor: pointer;
-  }
+.repeat:active svg {
+  fill: transparent;
+  stroke: #ffffff;
+  cursor: pointer;
+}
 
-  .repeat:active {
-    fill: #696969;
-    stroke: #FFFFFF;
-    cursor: pointer;
-  }
+.repeat:active {
+  fill: #696969;
+  stroke: #ffffff;
+  cursor: pointer;
+}
 
-  .shuffle {
-    composes: button;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
+.shuffle {
+  composes: button;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
 
-  .shuffle:hover svg {
-    fill: transparent;
-    stroke: #ACACAC;
-    cursor: pointer;
-  }
+.shuffle:hover svg {
+  fill: transparent;
+  stroke: #acacac;
+  cursor: pointer;
+}
 
-  .shuffle:active svg {
-    fill: transparent;
-    stroke: #FFFFFF;
-    cursor: pointer;
-  }
+.shuffle:active svg {
+  fill: transparent;
+  stroke: #ffffff;
+  cursor: pointer;
+}
 
-  .shuffle:active {
-    fill: #696969;
-    stroke: #FFFFFF;
-    cursor: pointer;
-  }
+.shuffle:active {
+  fill: #696969;
+  stroke: #ffffff;
+  cursor: pointer;
+}
 
-  .prev__svg {
-    width: 15px;
-    height: 14px;
-  }
+.prev__svg {
+  width: 15px;
+  height: 14px;
+}
 
-  .play__svg {
-    width: 22px;
-    height: 20px;
-    fill: #D9D9D9;
-  }
+.play__svg {
+  width: 22px;
+  height: 20px;
+  fill: #d9d9d9;
+}
 
-  .next__svg {
-    width: 15px;
-    height: 14px;
-    fill: inherit;
-    stroke: #D9D9D9;
-  }
+.next__svg {
+  width: 15px;
+  height: 14px;
+  fill: inherit;
+  stroke: #d9d9d9;
+}
 
-  .repeat__svg {
-    width: 18px;
-    height: 12px;
-    fill: transparent;
-    stroke: #696969;
-  }
+.repeat__svg {
+  width: 18px;
+  height: 12px;
+  fill: transparent;
+  stroke: #696969;
+}
 
-  .shuffle__svg {
-    width: 19px;
-    height: 12px;
-    fill: transparent;
-    stroke: #696969;
-  }
+.shuffle__svg {
+  width: 19px;
+  height: 12px;
+  fill: transparent;
+  stroke: #696969;
+}
