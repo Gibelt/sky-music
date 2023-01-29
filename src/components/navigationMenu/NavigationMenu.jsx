@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import s from './NavigationMenu.module.css';
+import { useThemeContext } from '../../context/themes';
 
 export default function NavigationMenu() {
+  const { currentTheme, toggleTheme } = useThemeContext();
   return (
     <div className={s.menu}>
       <ul className={s.list}>
@@ -21,6 +23,11 @@ export default function NavigationMenu() {
           </Link>
         </li>
       </ul>
+      <div role="presentation" onClick={toggleTheme} className={s.changeTheme}>
+        <svg className={s.svg} alt="theme">
+          <use xlinkHref={`../../img/icons/sprite.svg#icon-${currentTheme}`} />
+        </svg>
+      </div>
     </div>
   );
 }

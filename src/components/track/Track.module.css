@@ -38,7 +38,7 @@
   width: 51px;
   height: 51px;
   padding: 16px;
-  background: #313131;
+  background: var(--background-tertiary);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -55,7 +55,7 @@
   width: 18px;
   height: 17px;
   fill: transparent;
-  stroke: #4e4e4e;
+  stroke: var(--text-secondary);
 }
 
 .title__link {
@@ -63,7 +63,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .span {
@@ -71,7 +71,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #4e4e4e;
+  color: var(--text-secondary);
 }
 
 .author {
@@ -89,7 +89,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #ffffff;
+  color: var(--text-primary);
   text-align: left;
 }
 
@@ -102,7 +102,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #696969;
+  color: var(--text-secondary);
 }
 
 .time__svg {
@@ -110,7 +110,7 @@
   height: 12px;
   margin-right: 17px;
   fill: transparent;
-  stroke: #696969;
+  stroke: var(--text-secondary);
 }
 
 .time__text {
@@ -119,5 +119,5 @@
   font-size: 16px;
   line-height: 24px;
   text-align: right;
-  color: #696969;
+  color: var(--text-secondary);
 }
