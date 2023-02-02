@@ -13,7 +13,7 @@
 .image {
   width: 51px;
   height: 51px;
-  background-color: #313131;
+  background-color: var(--background-tertiary);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -33,5 +33,5 @@
 .skeleton {
   width: 59px;
   height: 15px;
-  background-color: #313131;
+  background-color: var(--background-tertiary);
 }

@@ -1,15 +1,15 @@
 import s from './BarProgress.module.css';
 
 export default function BarProgress(props) {
-  const color = {
+  const activeProgress = {
     width: `${props.width}%`,
-    backgroundColor: 'red',
+    backgroundColor: '#B672FF',
     height: 5,
   };
 
   return (
     <div className={s.progress}>
-      <div style={color} />
+      <div style={activeProgress} />
     </div>
   );
 }

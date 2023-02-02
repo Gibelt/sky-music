@@ -21,13 +21,13 @@
 
 .like:hover svg {
   fill: transparent;
-  stroke: #acacac;
+  stroke: var(--hover-secondary);
   cursor: pointer;
 }
 
 .like:active svg {
-  fill: #696969;
-  stroke: #ffffff;
+  fill: var(--active-tertiary);
+  stroke: var(--active-stroke);
   cursor: pointer;
 }
 
@@ -41,13 +41,11 @@
   width: 14px;
   height: 12px;
   fill: transparent;
-  stroke: #696969;
+  stroke: var(--svg-secondary);
 }
 
 .dislike__svg {
   composes: like__svg;
   width: 14.34px;
   height: 13px;
-  fill: transparent;
-  stroke: #696969;
 }

@@ -30,10 +30,13 @@
   cursor: pointer;
 }
 
+.play__svg:hover {
+  fill: var(--hover-secondary);
+}
+
 .next {
   composes: button;
   margin-right: 28px;
-  fill: #a53939;
 }
 
 .repeat {
@@ -41,21 +44,15 @@
   margin-right: 24px;
 }
 
-.repeat:hover svg {
+.repeat__svg:hover {
   fill: transparent;
-  stroke: #acacac;
+  stroke: var(--hover-secondary);
   cursor: pointer;
 }
 
-.repeat:active svg {
+.repeat__svg:active {
   fill: transparent;
-  stroke: #ffffff;
-  cursor: pointer;
-}
-
-.repeat:active {
-  fill: #696969;
-  stroke: #ffffff;
+  stroke: var(--active-secondary);
   cursor: pointer;
 }
 
@@ -69,52 +66,48 @@
   align-items: center;
 }
 
-.shuffle:hover svg {
-  fill: transparent;
-  stroke: #acacac;
+.shuffle__svg:hover {
+  fill: var(--hover-secondary);
+  stroke: var(--hover-secondary);
   cursor: pointer;
 }
 
-.shuffle:active svg {
+.shuffle__svg:active {
   fill: transparent;
-  stroke: #ffffff;
-  cursor: pointer;
-}
-
-.shuffle:active {
-  fill: #696969;
-  stroke: #ffffff;
+  stroke: var(--active-secondary);
   cursor: pointer;
 }
 
 .prev__svg {
   width: 15px;
   height: 14px;
+  fill: var(--svg-primary);
+  stroke: var(--svg-primary);
 }
 
 .play__svg {
   width: 22px;
   height: 20px;
-  fill: #d9d9d9;
+  fill: var(--svg-primary);
 }
 
 .next__svg {
   width: 15px;
   height: 14px;
-  fill: inherit;
-  stroke: #d9d9d9;
+  fill: var(--svg-primary);
+  stroke: var(--svg-primary);
 }
 
 .repeat__svg {
   width: 18px;
   height: 12px;
-  fill: transparent;
-  stroke: #696969;
+  fill: var(--svg-secondary);
+  stroke: var(--svg-secondary);
 }
 
 .shuffle__svg {
   width: 19px;
   height: 12px;
-  fill: transparent;
-  stroke: #696969;
+  fill: var(--svg-secondary);
+  stroke: var(--svg-secondary);
 }
