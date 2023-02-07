@@ -9,7 +9,7 @@ import s from './Bar.module.css';
 /* eslint-disable jsx-a11y/media-has-caption */
 
 export default function Bar(props) {
-  const playControls = useRef(null);
+  const audio = useRef(null);
 
   const [isPlay, setPlay] = useState(true);
   const togglePlay = () => setPlay(!isPlay);
@@ -21,21 +21,20 @@ export default function Bar(props) {
   const playTrack = () => {
     togglePlay();
     if (isPlay) {
-      playControls.current.play();
-      setId(
-        setInterval(() => {
-          setWidth((c) => c + 1 / (playControls.current.duration / 50));
+      audio.current.play();
+      setId(setInterval(() => {
+          setWidth((c) => c + 1 / (audio.current.duration / 50));
         }, 500)
       );
     } else {
       setId(clearInterval(id));
-      playControls.current.pause();
+      audio.current.pause();
     }
   };
 
   return (
     <div className={s.bar}>
-      <audio ref={playControls}>
+      <audio ref={audio}>
         <source src="../../Bobby_Marleni_-_Dropin.mp3" type="audio/mp3" />
       </audio>
       <div className={s.content}>
