@@ -25,11 +25,11 @@ export default function Bar(props) {
 `;
 
   const toPrevTrack = () => {
-    console.log('TODO go to prev');
+    console.log('go to prev');
   };
 
   const toNextTrack = () => {
-    console.log('TODO go to next');
+    console.log('go to next');
   };
 
   const startTimer = () => {
