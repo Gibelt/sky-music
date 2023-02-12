@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import s from './Track.module.css';
 
 export default function Track(props) {
@@ -11,7 +12,7 @@ export default function Track(props) {
             </svg>
           </div>
           <div className="track__title-text">
-            <a className={s.title__link} href="http://">
+            <a onClick={() => props.handleClick(props.id, props.source)} className={s.title__link} href='#'>
               {props.title}
               <span className={s.span}>{props.titleSpan}</span>
             </a>

@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import s from './LoginAndRegistration.module.css';
 import logo from '../../logo_black.png';
 
-export default function loginAndRegistration(props) {
-  const text = props.type === 'login' ? 'Войти' : 'Зарегестрироваться';
+export default function loginAndRegistration({type}) {
+  const text = type === 'login' ? 'Войти' : 'Зарегестрироваться';
   return (
     <div className={s.content}>
       <div className={s.logo}>
@@ -12,7 +12,7 @@ export default function loginAndRegistration(props) {
       <div className={s.form}>
         <input className={s.input} type="text" placeholder="Логин" />
         <input className={s.input} type="password" placeholder="Пароль" />
-        {props.type === 'registration' && (
+        {type === 'registration' && (
           <input
             className={s.input}
             type="password"
@@ -20,12 +20,12 @@ export default function loginAndRegistration(props) {
           />
         )}
       </div>
-      <Link className={s.enterLink} to={props.type === 'login' ? '/main' : '/'}>
+      <Link className={s.enterLink} to={type === 'login' ? '/main' : '/'}>
         <button type="button" className={s.buttonColored}>
           {text}
         </button>
       </Link>
-      {props.type === 'login' && (
+      {type === 'login' && (
         <Link to="/registration">
           <button type="button" className={s.button}>
             Зарегестрироваться

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import s from './MainTrackList.module.css';
 import Navigation from '../../components/navigation/Navigation';
@@ -92,6 +93,8 @@ const tracks = [
 export default function MainTrackList() {
   const [loader, setLoader] = useState(true);
 
+  const { source } = useSelector((state) => state.track);
+
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
@@ -118,7 +121,7 @@ export default function MainTrackList() {
           </div>
         )}
       </main>
-      <Bar loader={loader} />
+      {source && <Bar loader={loader} />}
       <footer className={s.footer} />
     </div>
   );

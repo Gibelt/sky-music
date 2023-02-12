@@ -1,9 +1,19 @@
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { removeUser } from '../../store/slices/userSlice';
 import s from './NavigationMenu.module.css';
 import { useThemeContext } from '../../context/themes';
 
 export default function NavigationMenu() {
   const { currentTheme, toggleTheme } = useThemeContext();
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(removeUser());
+    localStorage.setItem('access', '');
+    localStorage.setItem('refresh', '');
+    localStorage.setItem('userId', '');
+  };
   return (
     <div className={s.menu}>
       <ul className={s.list}>
@@ -17,7 +27,7 @@ export default function NavigationMenu() {
             Мой плейлист
           </Link>
         </li>
-        <li className={s.item}>
+        <li role="presentation" onClick={handleLogOut} className={s.item}>
           <Link to="/" className={s.link}>
             Выйти
           </Link>
