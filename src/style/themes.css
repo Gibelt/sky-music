@@ -17,6 +17,7 @@
     --active-stroke: #AD61FF;
     --volume-primary: #b1b1b1;
     --volume-secondary: #c4c4c4;
+    --thumbBar-prymary: rgba(0, 0, 0, 0.07);
 }
 
 .dark {
@@ -38,4 +39,5 @@
     --active-stroke: #fff;
     --volume-primary: #fff;
     --volume-secondary: #797979;
+    --thumbBar-prymary: rgba(255, 255, 255, 0.1);
 }

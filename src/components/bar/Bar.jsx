@@ -21,7 +21,7 @@ export default function Bar(props) {
 
   const currentPercentage = duration ? `${(progress / duration) * 100}%` : '0%';
   const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #B672FF), color-stop(${currentPercentage}, var(--background-progress)))
 `;
 
   const toPrevTrack = () => {
