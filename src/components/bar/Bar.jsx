@@ -1,5 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
+import {
+  useGetTrackByIdQuery,
+  useAddTrackInFavoriteMutation,
+  useRemoveTrackFromFavoriteMutation,
+} from '../../services/track';
+import { setTrackId } from '../../store/slices/trackSlice';
 import PlayerControls from '../playerControls/PlayerControls';
 import TrackPlayerContain from '../trackPlayerContain/TrackPlayerContain';
 import LikeDislike from '../likeDislike/LikeDislike';
@@ -8,14 +14,19 @@ import SkeletonPlayerContain from '../skeletons/skeletonPlayerContain/SkeletonPl
 import s from './Bar.module.css';
 /* eslint-disable jsx-a11y/media-has-caption */
 
-export default function Bar(props) {
-  const { source } = useSelector((state) => state.track);
-  const audio = useRef(null);
+export default function Bar() {
+  const { source, trackId, favorite } = useSelector((state) => state.track);
+  const { data, isLoading } = useGetTrackByIdQuery({ trackId });
+  const [addTrackInFavorite] = useAddTrackInFavoriteMutation();
+  const [removeTrackFromFavorite] = useRemoveTrackFromFavoriteMutation();
+  const [loader, setLoader] = useState(true);
+  const audio = useRef(new Audio(source));
   const [isPlay, setIsPlay] = useState(false);
   const togglePlay = () => setIsPlay(!isPlay);
   const [progress, setProgress] = useState(0);
   const isReady = useRef(false);
   const intervalRef = useRef();
+  const dispatch = useDispatch();
 
   const { duration } = audio.current || 0;
 
@@ -23,6 +34,20 @@ export default function Bar(props) {
   const trackStyling = `
   -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #B672FF), color-stop(${currentPercentage}, var(--background-progress)))
 `;
+
+  const handleAddFavorite = () => {
+    addTrackInFavorite({
+      id: trackId,
+    });
+    dispatch(setTrackId({ favorite: true }));
+  };
+
+  const handleRemoveFavorite = () => {
+    removeTrackFromFavorite({
+      id: trackId,
+    });
+    dispatch(setTrackId({ favorite: false }));
+  };
 
   const toPrevTrack = () => {
     console.log('go to prev');
@@ -60,7 +85,6 @@ export default function Bar(props) {
   };
 
   useEffect(() => {
-
     if (isPlay) {
       audio.current.play();
     } else {
@@ -77,7 +101,6 @@ export default function Bar(props) {
   );
 
   useEffect(() => {
-
     audio.current.pause();
 
     audio.current = new Audio(source);
@@ -92,11 +115,14 @@ export default function Bar(props) {
     }
   }, [source]);
 
+  useEffect(() => {
+    if (!isLoading) {
+      setLoader(false);
+    }
+  });
+
   return (
     <div className={s.bar}>
-      <audio ref={audio}>
-        <source src={source} type="audio/mp3" />
-      </audio>
       <div className={s.content}>
         <input
           className={s.progressLine}
@@ -118,12 +144,21 @@ export default function Bar(props) {
               onNextClick={toNextTrack}
             />
             <div className={s.track__play}>
-              {props.loader ? (
+              {loader ? (
                 <SkeletonPlayerContain />
               ) : (
-                <TrackPlayerContain title="Ты та..." author="Баста" />
+                <TrackPlayerContain
+                  title={data.name || ''}
+                  author={data.author || ''}
+                />
               )}
-              <LikeDislike />
+              {!loader && (
+                <LikeDislike
+                  onLikeClick={handleAddFavorite}
+                  onDislikeClick={handleRemoveFavorite}
+                  isFavorite={favorite}
+                />
+              )}
             </div>
           </div>
           <Volume />

@@ -42,13 +42,12 @@ export default function LoginScreen() {
           );
           localStorage.setItem('access', data.access);
           localStorage.setItem('refresh', data.refresh);
-          
+
           navigate('/main');
           logIn({
             password: pass,
             email: mail,
           }).then((response) => {
-            console.log(response.data.id);
             dispatch(
               setUserId({
                 userID: response.data.id,

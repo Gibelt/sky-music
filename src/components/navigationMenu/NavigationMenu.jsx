@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { removeUser } from '../../store/slices/userSlice';
 import s from './NavigationMenu.module.css';
 import { useThemeContext } from '../../context/themes';
+import { clearTrackId } from '../../store/slices/trackSlice';
+import { clearFilter } from '../../store/slices/filterSlice';
 
 export default function NavigationMenu() {
   const { currentTheme, toggleTheme } = useThemeContext();
@@ -10,6 +12,8 @@ export default function NavigationMenu() {
 
   const handleLogOut = () => {
     dispatch(removeUser());
+    dispatch(clearTrackId());
+    dispatch(clearFilter());
     localStorage.setItem('access', '');
     localStorage.setItem('refresh', '');
     localStorage.setItem('userId', '');

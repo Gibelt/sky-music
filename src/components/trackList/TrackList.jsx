@@ -1,30 +1,33 @@
-import { useDispatch } from 'react-redux';
+/* eslint-disable arrow-body-style */
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import SkeletonTrackList from '../skeletons/skeletonTrackList/SkeletonTrackList';
 import Track from '../track/Track';
 import s from './TrackList.module.css';
-import { useGetAllTracksQuery } from '../../services/track';
-import { setTrackId } from '../../store/slices/trackSlice';
+import { setTrackId, clearTrackId } from '../../store/slices/trackSlice';
 
 const skeletonTrackNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 export default function TrackList(props) {
-  const { data, error, isLoading } = useGetAllTracksQuery();
   const dispatch = useDispatch();
+  const { userID } = useSelector((state) => state.user);
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>{error.message}</p>;
-  }
-
-  const handleTrackClick = (id, file) => {
-    dispatch(setTrackId({
-      trackId: id,
-      source: file,
-    }));
+  const handleTrackClick = (id, file, isFavorite) => {
+    dispatch(
+      setTrackId({
+        trackId: id,
+        source: file,
+        favorite: isFavorite,
+      })
+    );
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearTrackId());
+    };
+  }, [useNavigate]);
 
   return (
     <div className={s.content}>
@@ -41,7 +44,7 @@ export default function TrackList(props) {
       <div className={s.playlist}>
         {props.loader
           ? skeletonTrackNumber.map((n) => <SkeletonTrackList key={n} />)
-          : data.map((track) => (
+          : props.tracks.map((track) => (
               <Track
                 handleClick={handleTrackClick}
                 source={track.track_file}
@@ -52,6 +55,9 @@ export default function TrackList(props) {
                 album={track.album}
                 time={track.duration_in_seconds}
                 titleSpan=""
+                favorite={track.stared_user.filter(
+                  (user) => user.id === Number(userID)
+                )}
               />
             ))}
       </div>

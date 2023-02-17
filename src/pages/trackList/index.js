@@ -1,5 +1,9 @@
-import { useSelector } from 'react-redux';
+/* eslint-disable no-unused-expressions */
+/* eslint-disable array-callback-return */
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useGetAllTracksQuery } from '../../services/track';
+import { setPerformersAndGenres } from '../../store/slices/filterSlice';
 import s from './MainTrackList.module.css';
 import Navigation from '../../components/navigation/Navigation';
 import Search from '../../components/search/Search';
@@ -10,96 +14,72 @@ import PlayListBlock from '../../components/playListBlock/PlayListBlock';
 import Bar from '../../components/bar/Bar';
 import SkeletonSideBar from '../../components/skeletons/skeletonSideBar/SkeletonSideBar';
 
-const tracks = [
-  {
-    title: 'Guilt ',
-    titleSpan: '',
-    author: 'Nero',
-    album: 'Welcome Reality',
-    time: '4:44',
-  },
-  {
-    title: 'Elektro ',
-    titleSpan: '',
-    author: 'Dynoro, Outwork, Mr. Gee',
-    album: 'Elektro',
-    time: '2:22',
-  },
-  {
-    title: 'I’m Fire ',
-    titleSpan: '',
-    author: 'Ali Bakgor',
-    album: 'I’m Fire',
-    time: '2:22',
-  },
-  {
-    title: 'Non Stop ',
-    titleSpan: '(Remix)',
-    author: 'Стоункат, Psychopath',
-    album: 'Non Stop',
-    time: '4:12',
-  },
-  {
-    title: 'Run Run ',
-    titleSpan: '(feat. AR/CO)',
-    author: 'Jaded, Will Clarke, AR/CO',
-    album: 'Run Run',
-    time: '2:54',
-  },
-  {
-    title: 'Eyes on Fire ',
-    titleSpan: '(Zeds Dead Remix)',
-    author: 'Blue Foundation, Zeds Dead',
-    album: 'Eyes on Fire',
-    time: '5:20',
-  },
-  {
-    title: 'Mucho Bien ',
-    titleSpan: '(Hi Profile Remix)',
-    author: 'HYBIT, Mr. Black, Offer Nissim, Hi Profile',
-    album: 'Mucho Bien',
-    time: '3:41',
-  },
-  {
-    title: 'Knives n Cherries ',
-    titleSpan: '',
-    author: 'minthaze',
-    album: 'Captivating',
-    time: '1:48',
-  },
-  {
-    title: 'How Deep Is Your Love ',
-    titleSpan: '',
-    author: 'Calvin Harris, Disciples',
-    album: 'How Deep Is Your Love',
-    time: '3:32',
-  },
-  {
-    title: 'Morena ',
-    titleSpan: '',
-    author: 'Tom Boxer',
-    album: 'Soundz Made in Romania',
-    time: '3:36',
-  },
-  {
-    title: '',
-    titleSpan: '',
-    author: '',
-    album: '',
-    time: '',
-  },
-];
-
 export default function MainTrackList() {
+  const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
-
+  const [tracks, setTracks] = useState('');
+  const { data, isLoading } = useGetAllTracksQuery();
   const { source } = useSelector((state) => state.track);
+  const { filterList, dateFilter } = useSelector((state) => state.filter);
+
+  const performersAndGenresList = () => {
+    const performersList = [];
+    const genresList = [];
+    data.map((track) => {
+      track.author !== '-' && performersList.push(track.author);
+      genresList.push(track.genre);
+    });
+    dispatch(
+      setPerformersAndGenres({
+        performers: Array.from(new Set(performersList)),
+        genres: Array.from(new Set(genresList)),
+      })
+    );
+  };
+
+  const filteredTracks = () => {
+    if (filterList.length === 0) {
+      return data;
+    }
+    const result = [];
+    filterList.map((filterItem) => {
+      data.map((track) => {
+        if (track.author === filterItem || track.genre === filterItem) {
+          result.push(track);
+        }
+      });
+    });
+    return Array.from(new Set(result));
+  };
 
   useEffect(() => {
+    if (!isLoading) {
+      performersAndGenresList();
+      setTracks(filteredTracks());
+      if (dateFilter === 'older') {
+        setTracks(
+          filteredTracks()
+            .slice()
+            .sort((a, b) =>
+              (a.release_date || '').localeCompare(b.release_date || '')
+            )
+        );
+      }
+      if (dateFilter === 'newer') {
+        setTracks(
+          filteredTracks()
+            .slice()
+            .sort((a, b) =>
+              (a.release_date || '').localeCompare(b.release_date || '')
+            )
+            .reverse()
+        );
+      }
+    }
     setTimeout(() => {
       setLoader(false);
     }, 5000);
-  });
+  }, [filterList, dateFilter, isLoading, data]);
 
   return (
     <div className={s.container}>
@@ -109,7 +89,7 @@ export default function MainTrackList() {
           <Search />
           <h2 className={s.title}>Треки</h2>
           <Filter />
-          <TrackList tracks={tracks} loader={loader} />
+          {!isLoading && <TrackList tracks={tracks} loader={loader} />}
         </div>
 
         {loader ? (
@@ -121,7 +101,7 @@ export default function MainTrackList() {
           </div>
         )}
       </main>
-      {source && <Bar loader={loader} />}
+      {source && <Bar />}
       <footer className={s.footer} />
     </div>
   );

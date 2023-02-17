@@ -1,30 +1,10 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import FilterList from '../filterList/FilterList';
 import s from './Filter.module.css';
 
-const performers = [
-  'Michael Jackson',
-  'Frank Sinatra',
-  'Calvin Harris',
-  'Zhu',
-  'Arctic Monkeys',
-  'Sia',
-  'Rob Thomas',
-  'Beatles',
-];
-
-const genres = [
-  'Рок',
-  'Хип-хоп',
-  'Поп-музыка',
-  'Техно',
-  'Инди',
-  'Рэп',
-  'Панк',
-  'Дип-хаус',
-];
-
 export default function Filter() {
+  const { performers, genres } = useSelector((state) => state.filter);
   const [performerVisible, setPerformerVisible] = useState(false);
   const togglePerformerVisibility = () =>
     setPerformerVisible(!performerVisible);

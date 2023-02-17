@@ -1,5 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { removeUser } from '../../store/slices/userSlice';
+import { clearTrackId } from '../../store/slices/trackSlice';
+import { clearFilter } from '../../store/slices/filterSlice';
 import s from './Personal.module.css';
 
 export default function Personal() {
@@ -7,6 +9,8 @@ export default function Personal() {
 
   const handleLogOut = () => {
     dispatch(removeUser());
+    dispatch(clearTrackId());
+    dispatch(clearFilter());
     localStorage.setItem('access', '');
     localStorage.setItem('refresh', '');
     localStorage.setItem('userId', '');

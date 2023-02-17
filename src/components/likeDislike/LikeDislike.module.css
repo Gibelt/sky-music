@@ -20,7 +20,7 @@
 }
 
 .like:hover svg {
-  fill: transparent;
+
   stroke: var(--hover-secondary);
   cursor: pointer;
 }
@@ -48,4 +48,16 @@
   composes: like__svg;
   width: 14.34px;
   height: 13px;
+}
+
+.active {
+  fill: var(--active-tertiary);
+  stroke: var(--active-stroke);
+  cursor: pointer;
+}
+
+.active:hover svg {
+  fill: var(--active-tertiary);
+  stroke: var(--active-stroke);
+  cursor: pointer;
 }

@@ -1,10 +1,9 @@
-import { useSelector } from 'react-redux';
-import { useGetTrackByIdQuery } from '../../services/track';
+
 import s from './TrackPlayerContain.module.css';
 
-export default function TrackPlayerContain() {
-  const { trackId } = useSelector((state) => state.track);
-  const { data } = useGetTrackByIdQuery({ trackId });
+export default function TrackPlayerContain({title, author}) {
+
+
 
   return (
     <div className={s.contain}>
@@ -13,14 +12,14 @@ export default function TrackPlayerContain() {
           <use xlinkHref="../../img/icons/sprite.svg#icon-note" />
         </svg>
       </div>
-      <div className={s.author}>
-        <a className={s.author__link} href="http://">
-          {data && data.name}
+      <div className={s.title}>
+        <a className={s.title__link} href="http://">
+          {title}
         </a>
       </div>
-      <div className={s.album}>
-        <a className={s.album__link} href="http://">
-          {data && data.author}
+      <div className={s.author}>
+        <a className={s.author__link} href="http://">
+         {author}
         </a>
       </div>
     </div>

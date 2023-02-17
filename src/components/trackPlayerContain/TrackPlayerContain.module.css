@@ -37,14 +37,14 @@
   stroke: #4e4e4e;
 }
 
-.author {
+.title {
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: author;
   min-width: 49px;
 }
 
-.author__link {
+.title__link {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -53,14 +53,14 @@
   white-space: nowrap;
 }
 
-.album {
+.author {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: album;
   min-width: 49px;
 }
 
-.album__link {
+.author__link {
   font-style: normal;
   font-weight: 400;
   font-size: 13px;

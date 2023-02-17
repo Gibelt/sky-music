@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useGetSelectionByIdQuery } from '../../services/track';
 import s from './Indi.module.css';
 import Navigation from '../../components/navigation/Navigation';
 import Search from '../../components/search/Search';
@@ -6,46 +8,10 @@ import TrackList from '../../components/trackList/TrackList';
 import Personal from '../../components/personal/Personal';
 import Bar from '../../components/bar/Bar';
 
-const tracks = [
-  {
-    title: 'Guilt ',
-    titleSpan: '',
-    author: 'Nero',
-    album: 'Welcome Reality',
-    time: '4:44',
-  },
-  {
-    title: 'Elektro ',
-    titleSpan: '',
-    author: 'Dynoro, Outwork, Mr. Gee',
-    album: 'Elektro',
-    time: '2:22',
-  },
-  {
-    title: 'I’m Fire ',
-    titleSpan: '',
-    author: 'Ali Bakgor',
-    album: 'I’m Fire',
-    time: '2:22',
-  },
-  {
-    title: 'Non Stop ',
-    titleSpan: '(Remix)',
-    author: 'Стоункат, Psychopath',
-    album: 'Non Stop',
-    time: '4:12',
-  },
-  {
-    title: 'Run Run ',
-    titleSpan: '(feat. AR/CO)',
-    author: 'Jaded, Will Clarke, AR/CO',
-    album: 'Run Run',
-    time: '2:54',
-  },
-];
-
 export default function PlayListIndi() {
   const [loader, setLoader] = useState(true);
+  const { data, isLoading } = useGetSelectionByIdQuery({ selectionId: 3 });
+  const { source } = useSelector((state) => state.track);
 
   useEffect(() => {
     setTimeout(() => {
@@ -60,13 +26,13 @@ export default function PlayListIndi() {
         <div className={s.centerblock}>
           <Search />
           <h2 className={s.title}>Инди заряд</h2>
-          <TrackList tracks={tracks} loader={loader} />
+          {!isLoading && <TrackList tracks={data.items} loader={loader} />}
         </div>
         <div className={s.sidebar}>
           <Personal />
         </div>
       </main>
-      <Bar loader={loader} />
+      {source && <Bar loader={loader} />}
       <footer className={s.footer} />
     </div>
   );
