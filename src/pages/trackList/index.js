@@ -19,7 +19,7 @@ export default function MainTrackList() {
   const [loader, setLoader] = useState(true);
   const [tracks, setTracks] = useState('');
   const { data, isLoading } = useGetAllTracksQuery();
-  const { source } = useSelector((state) => state.track);
+  const { trackId, source, favorite, allTracksId } = useSelector((state) => state.track);
   const { filterList, dateFilter } = useSelector((state) => state.filter);
 
   const performersAndGenresList = () => {
@@ -101,7 +101,7 @@ export default function MainTrackList() {
           </div>
         )}
       </main>
-      {source && <Bar />}
+      {source && <Bar trdackId={trackId} source={source} favorite={favorite} allTracksId={allTracksId} />}
       <footer className={s.footer} />
     </div>
   );

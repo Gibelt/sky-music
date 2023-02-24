@@ -1,6 +1,15 @@
 import s from './PlayerControls.module.css';
 
-export default function PlayerControls({ onPlayPauseClick, onPrevClick, onNextClick}) {
+export default function PlayerControls({
+  onPlayPauseClick,
+  onPrevClick,
+  onNextClick,
+  onRepeatClick,
+  onShuffleClick,
+  isPlay,
+  isRepeat,
+  isShuffle,
+}) {
   return (
     <div className={s.controls}>
       <div className={s.prev}>
@@ -10,7 +19,11 @@ export default function PlayerControls({ onPlayPauseClick, onPrevClick, onNextCl
       </div>
       <div className={s.play} role="presentation" onClick={onPlayPauseClick}>
         <svg className={s.play__svg} alt="play">
-          <use xlinkHref="../../img/icons/sprite.svg#icon-play" />
+          {isPlay ? (
+            <use xlinkHref="../../img/icons/sprite.svg#icon-pause" />
+          ) : (
+            <use xlinkHref="../../img/icons/sprite.svg#icon-play" />
+          )}
         </svg>
       </div>
       <div className={s.next}>
@@ -19,12 +32,20 @@ export default function PlayerControls({ onPlayPauseClick, onPrevClick, onNextCl
         </svg>
       </div>
       <div className={s.repeat}>
-        <svg className={s.repeat__svg} alt="repeat">
+        <svg
+          className={`${isRepeat ? s.repeat__svg_active : s.repeat__svg}`}
+          alt="repeat"
+          onClick={onRepeatClick}
+        >
           <use xlinkHref="../../img/icons/sprite.svg#icon-repeat" />
         </svg>
       </div>
       <div className={s.shuffle}>
-        <svg className={s.shuffle__svg} alt="shuffle">
+        <svg
+          className={`${isShuffle ? s.shuffle__svg_active : s.shuffle__svg}`}
+          alt="shuffle"
+          onClick={onShuffleClick}
+        >
           <use xlinkHref="../../img/icons/sprite.svg#icon-shuffle" />
         </svg>
       </div>

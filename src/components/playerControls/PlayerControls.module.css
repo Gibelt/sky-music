@@ -50,9 +50,11 @@
   cursor: pointer;
 }
 
-.repeat__svg:active {
+.repeat__svg_active {
+  width: 18px;
+  height: 12px;
   fill: transparent;
-  stroke: var(--active-secondary);
+  stroke: var(--hover-secondary);
   cursor: pointer;
 }
 
@@ -72,9 +74,11 @@
   cursor: pointer;
 }
 
-.shuffle__svg:active {
-  fill: transparent;
-  stroke: var(--active-secondary);
+.shuffle__svg_active {
+  width: 19px;
+  height: 12px;
+  fill: var(--hover-secondary);
+  stroke: var(--hover-secondary);
   cursor: pointer;
 }
 

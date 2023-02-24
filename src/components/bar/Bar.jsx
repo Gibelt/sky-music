@@ -15,15 +15,19 @@ import s from './Bar.module.css';
 /* eslint-disable jsx-a11y/media-has-caption */
 
 export default function Bar() {
-  const { source, trackId, favorite } = useSelector((state) => state.track);
+  const { source, trackId, favorite, allTracksId } = useSelector(
+    (state) => state.track
+  );
+  const [songsId, setSongsId] = useState([]);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const [isPlay, setIsPlay] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [isRepeat, setIsRepeat] = useState(false);
+  const [isShuffle, setIsShuffle] = useState(false);
   const { data, isLoading } = useGetTrackByIdQuery({ trackId });
   const [addTrackInFavorite] = useAddTrackInFavoriteMutation();
   const [removeTrackFromFavorite] = useRemoveTrackFromFavoriteMutation();
-  const [loader, setLoader] = useState(true);
   const audio = useRef(new Audio(source));
-  const [isPlay, setIsPlay] = useState(false);
-  const togglePlay = () => setIsPlay(!isPlay);
-  const [progress, setProgress] = useState(0);
   const isReady = useRef(false);
   const intervalRef = useRef();
   const dispatch = useDispatch();
@@ -34,6 +38,20 @@ export default function Bar() {
   const trackStyling = `
   -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #B672FF), color-stop(${currentPercentage}, var(--background-progress)))
 `;
+
+  const togglePlay = () => setIsPlay(!isPlay);
+  const toggleRepeat = () => setIsRepeat(!isRepeat);
+  const toggleShuffle = () => {
+    setIsShuffle(!isShuffle);
+    console.log(isShuffle);
+    if (!isShuffle) {
+      setSongsId(
+        allTracksId.slice().sort(() => Math.round(Math.random() * 100) - 50)
+      );
+    } else {
+      setSongsId(allTracksId);
+    }
+  };
 
   const handleAddFavorite = () => {
     addTrackInFavorite({
@@ -50,20 +68,54 @@ export default function Bar() {
   };
 
   const toPrevTrack = () => {
-    console.log('go to prev');
+    if (trackIndex - 1 < 0) {
+      return;
+    }
+    setTrackIndex(trackIndex - 1);
+    dispatch(
+      setTrackId({
+        trackId: songsId[trackIndex - 1],
+      })
+    );
   };
 
   const toNextTrack = () => {
-    console.log('go to next');
+    if (trackIndex < songsId.length - 1) {
+      setTrackIndex(trackIndex + 1);
+      dispatch(
+        setTrackId({
+          trackId: songsId[trackIndex + 1],
+        })
+      );
+    } else {
+      setTrackIndex(0);
+      dispatch(
+        setTrackId({
+          trackId: songsId[0],
+        })
+      );
+    }
   };
 
   const startTimer = () => {
     clearInterval(intervalRef.current);
-
     if (source) {
       intervalRef.current = setInterval(() => {
         if (audio.current.ended) {
-          toNextTrack();
+          if (isRepeat) {
+            audio.current.pause();
+            audio.current = new Audio(data.track_file);
+            setProgress(audio.current.currentTime);
+            if (isReady.current) {
+              audio.current.play();
+              setIsPlay(true);
+              startTimer();
+            } else {
+              isReady.current = true;
+            }
+          } else {
+            toNextTrack();
+          }
         } else {
           setProgress(audio.current.currentTime);
         }
@@ -85,6 +137,10 @@ export default function Bar() {
   };
 
   useEffect(() => {
+    setSongsId(allTracksId);
+  }, [allTracksId]);
+
+  useEffect(() => {
     if (isPlay) {
       audio.current.play();
     } else {
@@ -101,10 +157,19 @@ export default function Bar() {
   );
 
   useEffect(() => {
-    audio.current.pause();
-
-    audio.current = new Audio(source);
-    setProgress(audio.current.currentTime);
+    if (!isLoading) {
+      setTrackIndex(songsId.indexOf(trackId));
+      dispatch(
+        setTrackId({
+          source: data.track_file,
+          favorite: data.stared_user.filter((user) => user.id === Number(192))
+            .length,
+        })
+      );
+      audio.current.pause();
+      audio.current = new Audio(data.track_file);
+      setProgress(audio.current.currentTime);
+    }
 
     if (isReady.current) {
       audio.current.play();
@@ -113,13 +178,7 @@ export default function Bar() {
     } else {
       isReady.current = true;
     }
-  }, [source]);
-
-  useEffect(() => {
-    if (!isLoading) {
-      setLoader(false);
-    }
-  });
+  }, [data]);
 
   return (
     <div className={s.bar}>
@@ -142,9 +201,14 @@ export default function Bar() {
               onPlayPauseClick={togglePlay}
               onPrevClick={toPrevTrack}
               onNextClick={toNextTrack}
+              onRepeatClick={toggleRepeat}
+              onShuffleClick={toggleShuffle}
+              isPlay={isPlay}
+              isRepeat={isRepeat}
+              isShuffle={isShuffle}
             />
             <div className={s.track__play}>
-              {loader ? (
+              {isLoading ? (
                 <SkeletonPlayerContain />
               ) : (
                 <TrackPlayerContain
@@ -152,13 +216,12 @@ export default function Bar() {
                   author={data.author || ''}
                 />
               )}
-              {!loader && (
-                <LikeDislike
-                  onLikeClick={handleAddFavorite}
-                  onDislikeClick={handleRemoveFavorite}
-                  isFavorite={favorite}
-                />
-              )}
+
+              <LikeDislike
+                onLikeClick={handleAddFavorite}
+                onDislikeClick={handleRemoveFavorite}
+                isFavorite={favorite}
+              />
             </div>
           </div>
           <Volume />

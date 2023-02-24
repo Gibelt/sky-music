@@ -5,7 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import SkeletonTrackList from '../skeletons/skeletonTrackList/SkeletonTrackList';
 import Track from '../track/Track';
 import s from './TrackList.module.css';
-import { setTrackId, clearTrackId } from '../../store/slices/trackSlice';
+import {
+  setTrackId,
+  clearTrackId,
+  setAllTracksId,
+} from '../../store/slices/trackSlice';
 
 const skeletonTrackNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -22,6 +26,13 @@ export default function TrackList(props) {
       })
     );
   };
+
+  useEffect(() => {
+    if (!props.loader) {
+      const tracksId = props.tracks.map((track) => track.id);
+      dispatch(setAllTracksId(tracksId));
+    }
+  }, [props.loader, props.tracks]);
 
   useEffect(() => {
     return () => {

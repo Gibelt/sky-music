@@ -5,6 +5,7 @@ const initialState = {
   trackId: null,
   source: null,
   favorite: false,
+  allTracksId: [],
 };
 
 const trackSlice = createSlice({
@@ -16,14 +17,17 @@ const trackSlice = createSlice({
       state.source = action.payload.source || state.source;
       state.favorite = action.payload.favorite;
     },
+    setAllTracksId(state, action) {
+      state.allTracksId = action.payload;
+    },
     clearTrackId(state) {
       state.trackId = null;
       state.source = null;
       state.favorite = false;
-    }
+    },
   },
 });
 
-export const { setTrackId, clearTrackId } = trackSlice.actions;
+export const { setTrackId, setAllTracksId, clearTrackId } = trackSlice.actions;
 
 export default trackSlice.reducer;
