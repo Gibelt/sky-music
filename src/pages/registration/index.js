@@ -79,7 +79,7 @@ export default function RegistrationScreen() {
             type="password"
             placeholder="Пароль"
           />
-          {passEror && <div className={s.error}>{passEror}</div>}
+          {passEror ? <div className={s.error}>{passEror}</div> : <div className={s.tip}>Минимум 8 символов</div>}
           <input
             value={repeatPass}
             onChange={handleRepeatPasswordChange}

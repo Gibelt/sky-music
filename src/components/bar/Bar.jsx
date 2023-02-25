@@ -43,7 +43,6 @@ export default function Bar() {
   const toggleRepeat = () => setIsRepeat(!isRepeat);
   const toggleShuffle = () => {
     setIsShuffle(!isShuffle);
-    console.log(isShuffle);
     if (!isShuffle) {
       setSongsId(
         allTracksId.slice().sort(() => Math.round(Math.random() * 100) - 50)
